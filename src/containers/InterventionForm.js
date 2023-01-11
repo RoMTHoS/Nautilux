@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import { createIntervention } from "../actions/index";
-import { useDispatch } from "react-redux";
-import { CREATE_INTERVENTION } from "../types";
-import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { addNewIntervention } from "../redux/interventionsSlice";
+import moment from "moment";
 
 function InterventionForm() {
   const [interventionName, setInterventionName] = useState("");
@@ -12,37 +11,35 @@ function InterventionForm() {
   const [mail, setMail] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
 
-  const dispatch = useDispatch();
-
   const interventions = useSelector(
-    (state) => state.interventionsReducer.interventions
+    (state) => state.interventions.interventions
   );
 
-  function creteNewIntervention(e) {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const id = interventions.length + 1;
+
+  function createNewIntervention(e) {
     e.preventDefault();
     const shouldAdding = checkingForm();
 
     if (shouldAdding) {
-      const newInterventions = [
-        ...interventions,
-        {
-          create_at: Date.now(),
-          name: interventionName,
-          description: description,
-          sender_name: applicant,
-          sender_email: mail,
-          sender_phone: phoneNumber,
-        },
-      ];
-      dispatch(
-        createIntervention({
-          type: CREATE_INTERVENTION,
-          payload: newInterventions,
-        })
-      );
+      const date = moment().format("YYYY/MM/D hh:mm:ss");
+      const newIntervention = {
+        id: id,
+        created_at: date,
+        name: interventionName,
+        description: description,
+        sender_name: applicant,
+        sender_email: mail,
+        sender_phone: phoneNumber,
+      };
+      dispatch(addNewIntervention(newIntervention));
+      navigate("/");
     }
   }
-  //Verifier que les champs du formulairs soient bien rempli
+  //Verifier que les champs du formulaires soient bien remplis
   function checkingForm() {
     if (interventionName === "") {
       alert("Veuillez indiquer un titre pour l'intervention");
@@ -67,16 +64,22 @@ function InterventionForm() {
     return true;
   }
 
+  function navigateToInterventionsList() {
+    navigate("/");
+  }
+
   return (
     <div className="w-50 m-auto">
-      <div className="between" style={styles.buttonContainer}>
-        <button className="btn btn-primary" style={styles.button}>
-          <Link to="/">Retour</Link>
+      <div className="between py-3">
+        <button
+          className="btn btn-white self-start"
+          onClick={navigateToInterventionsList}
+        >
+          Retour
         </button>
         <button
-          className="btn btn-primary"
-          style={styles.button}
-          onClick={(e) => creteNewIntervention(e)}
+          className="btn btn-yellow self-start"
+          onClick={(e) => createNewIntervention(e)}
         >
           Créer
         </button>
@@ -137,12 +140,3 @@ function InterventionForm() {
 }
 
 export default InterventionForm;
-
-const styles = {
-  buttonContainer: {
-    padding: "1em 0",
-  },
-  button: {
-    alignSelf: "flex-start",
-  },
-};

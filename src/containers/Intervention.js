@@ -1,27 +1,51 @@
 import React from "react";
+import { useSelector } from "react-redux";
+import { useNavigate, useParams } from "react-router-dom";
 
 function Intervention() {
+  const { interventionId } = useParams();
+  const navigate = useNavigate();
+
+  const interventions = useSelector(
+    (state) => state.interventions.interventions
+  );
+
+  function findIntervention() {
+    const intervention = interventions.filter(
+      (inter) => Number(inter.id) === Number(interventionId)
+    );
+    return intervention[0];
+  }
+
+  const intervention = findIntervention();
+
+  console.log(intervention);
+
+  function navigateToInterventionsList() {
+    navigate("/");
+  }
+
   return (
-    <div className="m-auto" style={styles.container}>
-      <div style={styles.buttonContainer}>
-        <button className="btn btn-primary" style={styles.button}>
+    <div className="column items-center">
+      <div className="w-50 py-3">
+        <button
+          className="btn btn-white self-start"
+          onClick={navigateToInterventionsList}
+        >
           Retour
         </button>
       </div>
-      <div style={styles.intervention}>
-        <h4 className="bold">Nid de poules </h4>
-        <div style={styles.content}>
+      <div className="w-50 column items-start p-3 b-3-grey br-15">
+        <h4 className="bold mb-4">{intervention.name}</h4>
+        <div className="mb-4">
           <div className="bold">DESCRIPTION</div>
-          <div>
-            Le nide de poules sur la route des près devient dangereux.
-            Pourriez-vous intervenir pour le revboucher ?
-          </div>
+          <div>{intervention.description}</div>
         </div>
-        <div style={styles.content}>
+        <div>
           <div className="bold">DEMANDEUR</div>
-          <div className="bold">Romuald Gauthier</div>
-          <div>romual_gauthier@gmail.com</div>
-          <div>06 42 75 98 85 </div>
+          <div className="bold">{intervention.sender_name}</div>
+          <div>{intervention.sender_email}</div>
+          <div>{intervention.sender_phone}</div>
         </div>
       </div>
     </div>
@@ -29,30 +53,3 @@ function Intervention() {
 }
 
 export default Intervention;
-
-const styles = {
-  container: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-  },
-  buttonContainer: {
-    width: "50%",
-    padding: "1em 0",
-  },
-  button: {
-    alignSelf: "flex-start",
-  },
-  intervention: {
-    display: "flex",
-    alignItems: "flex-start",
-    flexDirection: "column",
-    width: "50%",
-    padding: "1em",
-    borderRadius: "15px",
-    border: "3px solid #f1f1f1",
-  },
-  content: {
-    marginBottom: "0.5em",
-  },
-};

@@ -1,23 +1,22 @@
-import React from "react";
-import { Provider } from "react-redux";
-
-import configureStore, { sagaMiddleware } from "./store";
-import rootSaga from "./sagas";
-
+import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import Header from "./components/Header";
 import Router from "./Router";
-
-const store = configureStore();
-sagaMiddleware.run(rootSaga);
+import { getInterventionsFetch } from "./redux/interventionsSlice";
 
 function App() {
+  const dispatch = useDispatch();
+
+  //Récupérer les interventions en BD
+  useEffect(() => {
+    dispatch(getInterventionsFetch());
+  }, []);
+
   return (
-    <Provider store={store}>
-      <div className="container">
-        <Header />
-        <Router />
-      </div>
-    </Provider>
+    <div className="container">
+      <Header />
+      <Router />
+    </div>
   );
 }
 

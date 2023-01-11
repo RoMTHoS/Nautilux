@@ -7,7 +7,7 @@ function Router() {
   return (
     <Routes>
       <Route path="/" element={<InterventionsList />} />
-      <Route path="/intervention" element={<Intervention />} />
+      <Route path="/intervention/:interventionId" element={<Intervention />} />
       <Route path="/create" element={<InterventionForm />} />
     </Routes>
   );

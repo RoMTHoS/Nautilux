@@ -1,6 +1,6 @@
-import { takeLatest, all, call, put } from "redux-saga/effects";
+import { getInterventionsSuccess } from "../redux/interventionsSlice";
+import { takeEvery, call, put } from "redux-saga/effects";
 import axios from "axios";
-import { GET_INTERVENTIONS_FETCH, GET_INTERVENTIONS_SUCCESS } from "../types";
 
 async function fetchInterventions() {
   const response = await axios.get("http://localhost:3001/interventions", {
@@ -9,11 +9,11 @@ async function fetchInterventions() {
   return response.data;
 }
 
-function* getInterventions(action) {
+function* getInterventions() {
   const interventions = yield call(fetchInterventions);
-  yield put({ type: GET_INTERVENTIONS_SUCCESS, interventions });
+  yield put(getInterventionsSuccess(interventions));
 }
 
 export default function* rootSaga() {
-  yield all([takeLatest(GET_INTERVENTIONS_FETCH, getInterventions)]);
+  yield takeEvery("interventions/getInterventionsFetch", getInterventions);
 }

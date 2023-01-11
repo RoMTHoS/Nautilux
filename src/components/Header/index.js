@@ -1,6 +1,6 @@
-import React from 'react';
+import React from "react";
 
-import logo from './logo.svg';
+import logo from "./logo.svg";
 
 function Header() {
   return (
@@ -8,7 +8,7 @@ function Header() {
       className="navbar navbar-expand-lg navbar-light bg-light"
       style={styles.navbar}
     >
-      <a className="navbar-brand" href="#" style={styles.brand}>
+      <a className="navbar-brand" href="/" style={styles.brand}>
         <img src={logo} alt="logo" style={styles.logo} />
         Interventions
       </a>
@@ -18,16 +18,16 @@ function Header() {
 
 const styles = {
   navbar: {
-    borderBottomRightRadius: '15px',
-    borderBottomLeftRadius: '15px',
+    borderBottomRightRadius: "15px",
+    borderBottomLeftRadius: "15px",
   },
   logo: {
-    height: '40px',
-    marginRight: '0.5rem',
+    height: "40px",
+    marginRight: "0.5rem",
   },
   brand: {
-    fontSize: '1.5em',
-    fontWeight: 'bold',
+    fontSize: "1.5em",
+    fontWeight: "bold",
   },
 };
 

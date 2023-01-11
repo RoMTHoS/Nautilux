@@ -1,28 +1,17 @@
-import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
-import { getInterventions } from "../actions/index";
 import Table from "../components/Table/Table";
+import { useNavigate } from "react-router-dom";
 
 function InterventionsList() {
-  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  //Récupérer la liste des interventions
-  useEffect(() => {
-    dispatch(getInterventions());
-  }, []);
-
-  function showIntervention() {}
-
+  function navigateToInterventionForm() {
+    navigate("/create");
+  }
   return (
     <div className="content-container">
-      <div style={styles.headerTable}>
-        <button
-          className="btn btn-primary"
-          style={styles.button}
-          onClick={showIntervention}
-        >
-          <Link to="/create">Créer une intervention</Link>
+      <div className="header-table">
+        <button className="btn btn-yellow" onClick={navigateToInterventionForm}>
+          Créer une intervention
         </button>
       </div>
       <Table />
@@ -31,14 +20,3 @@ function InterventionsList() {
 }
 
 export default InterventionsList;
-
-const styles = {
-  headerTable: {
-    display: "flex",
-    alignItems: "center",
-    marginBottom: "1rem",
-  },
-  button: {
-    backgroundColor: "#FFD500",
-  },
-};

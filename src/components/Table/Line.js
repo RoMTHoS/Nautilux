@@ -1,15 +1,44 @@
 import React from "react";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
-function Line() {
+function Line({ order }) {
+  const navigate = useNavigate();
+
   const interventions = useSelector(
-    (state) => state.interventionsReducer.interventions
+    (state) => state.interventions.interventions
   );
+
+  function filterInterventions() {
+    const interventionsClone = [...interventions];
+    if (order) {
+      return interventionsClone.sort(
+        (a, b) => new Date(a.created_at) - new Date(b.created_at)
+      );
+    } else {
+      return interventionsClone.sort(
+        (a, b) => new Date(b.created_at) - new Date(a.created_at)
+      );
+    }
+  }
+
+  const interventiosnFiltered = filterInterventions();
+
+  function openIntervention(id) {
+    navigate(`/intervention/${id}`);
+  }
+
   return (
     <>
-      {interventions.map((intervention) => (
-        <tr key={intervention.id} style={styles.borderBottom}>
-          <th scope="row">{intervention.created_at}</th>
+      {interventiosnFiltered.map((intervention) => (
+        <tr
+          key={intervention.id}
+          className="boder-bottom"
+          onClick={() => openIntervention(intervention.id)}
+        >
+          <th className="date" scope="row">
+            {intervention.created_at}
+          </th>
           <td>
             <div className="bold no-wrap">{intervention.name}</div>
             <div>{intervention.created_at}</div>
@@ -25,11 +54,5 @@ function Line() {
     </>
   );
 }
-
-const styles = {
-  borderBottom: {
-    borderBottom: "solid 1px grey",
-  },
-};
 
 export default Line;

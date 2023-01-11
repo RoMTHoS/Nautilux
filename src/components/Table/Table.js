@@ -1,57 +1,32 @@
-import React from "react";
-import { useParams } from "react-router-dom";
+import React, { useState } from "react";
+import Arrow from "./Arrow";
 import Line from "./Line";
 
 function Table(props) {
-  const { interventionId } = useParams();
-
-  const un = {
-    first: "Mark",
-    last: "Otto",
-    handle: "@mdo",
-  };
-  const deux = {
-    first: "Mark",
-    last: "Otto",
-    handle: "@mdo",
-  };
-  const trois = {
-    first: "Mark",
-    last: "Otto",
-    handle: "@mdo",
-  };
-  const quatre = {
-    id: 1,
-    created_at: "2020-04-12 14:53:09",
-    name: "Nid de poule",
-    description:
-      "Le nid de poules sur la route des prés devient dangereux. Pourriez-vous intervenir pour le reboucher ?",
-    sender_name: "Romuald Gauthier",
-    sender_email: "romuald_gautier@gmail.com",
-    sender_phone: "0648736255",
-  };
+  const [order, setOrder] = useState(false);
 
   return (
     <>
-      <table className="table table-borderless" style={styles.table}>
-        <thead className="table-secondary" style={styles.borderBottom}>
+      <table className="table table-borderless">
+        <thead className="table-secondary boder-bottom">
           <tr>
-            <th scope="col" style={styles.leftCorner}>
+            <th className="date rounded-left-top" scope="col">
               DATE
+              <Arrow order={order} setOrder={setOrder} />
             </th>
             <th scope="col">NOM</th>
             <th scope="col">DESCRIPTION</th>
             <th scope="col">DEMANDEUR</th>
-            <th scope="col" style={styles.rightCorner}>
+            <th scope="col" className=" rounded-right-top">
               COORDONNÉES
             </th>
           </tr>
         </thead>
         <tbody>
-          <Line info={un} />
-          <Line info={deux} />
-          <Line info={trois} />
-          <Line info={quatre} />
+          <Line order={order} />
+          <Line order={order} />
+          <Line order={order} />
+          <Line order={order} />
         </tbody>
       </table>
     </>
@@ -59,10 +34,6 @@ function Table(props) {
 }
 
 const styles = {
-  table: {
-    fontSize: "0.75rem",
-    captionSide: "top",
-  },
   borderBottom: {
     borderBottom: "solid 1px grey",
   },
