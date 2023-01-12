@@ -33,16 +33,4 @@ function Table(props) {
   );
 }
 
-const styles = {
-  borderBottom: {
-    borderBottom: "solid 1px grey",
-  },
-  leftCorner: {
-    borderTopLeftRadius: "25px",
-  },
-  rightCorner: {
-    borderTopRightRadius: "25px",
-  },
-};
-
 export default Table;

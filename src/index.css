@@ -109,6 +109,10 @@ body {
   transition: background 0.3s;
 }
 
+.intervention-number {
+  margin: 0 1em;
+}
+
 .dropdown .select .caret {
   width: 0;
   height: 0;
