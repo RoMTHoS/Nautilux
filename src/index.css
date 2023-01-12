@@ -109,6 +109,10 @@ body {
   transition: background 0.3s;
 }
 
+.intervention-number {
+  margin: 0 1em;
+}
+
 .dropdown .select .caret {
   width: 0;
   height: 0;
@@ -134,4 +138,19 @@ body {
 
 .rounded-right-top {
   border-top-right-radius: 20px;
+}
+
+.date-container {
+  background-color: rgb(89, 88, 88);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
+  border-radius: 10px;
+  width: 50px;
+}
+
+.date-content {
+  color: white;
 }
