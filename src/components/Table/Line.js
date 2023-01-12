@@ -39,6 +39,10 @@ function Line({ order }) {
           <th className="date" scope="row">
             {intervention.created_at}
           </th>
+          <div className="date-container">
+            <div className="date-content">{}</div>
+            <div className="date-content">{}</div>
+          </div>
           <td>
             <div className="bold no-wrap">{intervention.name}</div>
             <div>{intervention.created_at}</div>
